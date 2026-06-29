@@ -2,6 +2,7 @@ version: 1
 
 # studio.override.yaml
 # Admin-authored. Never overwritten by platform upgrades.
+# Copy from studio.override.yaml.example to get started.
 #
 # Route entries here override studio.platform.yaml entries with the same path.
 # Nav groups with the same id as a platform group have their items merged in.
@@ -30,7 +31,6 @@ routes:
 
 nav:
   groups:
-    # New group — independent section, appears after platform groups
     - id: research
       title: Research
       order: 20
@@ -44,18 +44,6 @@ nav:
           icon: BarChart2
           order: 20
 
-    # --- Group injection example ---
-    # Same id as a platform group — items are merged in and sorted by order.
-    # Use this when you want to extend an existing group rather than create a new one.
-    # e.g. inject a custom trace view into NVIDIA's beta Models group at order 15:
-    # - id: models
-    #   items:
-    #     - path: /data-explorer
-    #       title: Data Explorer
-    #       icon: Table2
-    #       order: 15
-
-    # Standalone plugin as its own group
     - id: admin-tools
       title: Admin Tools
       order: 30
@@ -65,9 +53,7 @@ nav:
           icon: Table2
           order: 10
 
-
   # --- Nav hiding ---
   # hide: removes paths from the sidebar only. The route still loads at its URL.
-  # Use when you want a route accessible by direct link but not surfaced in nav.
   # hide:
   #   - /evaluations

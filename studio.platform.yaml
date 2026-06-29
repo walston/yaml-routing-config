@@ -1,3 +1,5 @@
+version: 1
+
 # studio.platform.yaml
 # NVIDIA-authored. Updated with each platform release.
 # Do not edit directly — use studio.override.yaml to extend or override.

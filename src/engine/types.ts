@@ -29,8 +29,9 @@ export type NavManifest = {
 };
 
 export type StudioManifest = {
+  version?: number;
   flags?: Record<string, boolean>;
-  path_variables?: Record<string, string>;  // name → description, used for dev-mode validation
+  path_variables?: Record<string, string>;
   routes?: RouteEntry[];
   nav?: NavManifest;
 };

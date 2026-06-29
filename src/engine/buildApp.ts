@@ -25,6 +25,27 @@ const components = import.meta.glob<{ default: ComponentType }>([
 
 const toGlobKey = (componentPath: string) => `../${componentPath}`;
 
+// ── Version validation ─────────────────────────────────────────────────────────
+
+const SUPPORTED_VERSION = 1;
+
+function validateManifestVersion(manifest: StudioManifest, filename: string): void {
+  if (manifest.version === undefined) {
+    console.warn(
+      `[studio] ${filename} is missing a version field. Assuming version ${SUPPORTED_VERSION}.\n` +
+      `  Add \`version: ${SUPPORTED_VERSION}\` at the top of the file to silence this warning.`
+    );
+    return;
+  }
+  if (manifest.version !== SUPPORTED_VERSION) {
+    throw new Error(
+      `[studio] ${filename} declares version ${manifest.version} but this engine supports version ${SUPPORTED_VERSION}.\n\n` +
+      `  See docs/MIGRATION.md for upgrade instructions.\n` +
+      `  An agent can perform this migration automatically — point it at docs/MIGRATION.md.`
+    );
+  }
+}
+
 // Internal types for order-assigned nav entries
 type OrderedItem  = NavItemDeclaration  & { order: number };
 type OrderedGroup = NavGroupDeclaration & { order: number; items: OrderedItem[] };
@@ -215,7 +236,11 @@ function warnPathVariables(manifest: StudioManifest): void {
 
 export function buildApp() {
   const platform = parse(platformYaml) as StudioManifest;
-  const admin = parse(adminYaml) as StudioManifest;
+  const admin    = parse(adminYaml)    as StudioManifest;
+
+  validateManifestVersion(platform, 'studio.platform.yaml');
+  validateManifestVersion(admin,    'studio.override.yaml');
+
   const merged = mergeManifests(platform, admin);
   warnPathVariables(merged);
 
