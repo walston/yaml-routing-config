@@ -1,2 +1,5 @@
 node_modules/
 dist/
+
+# Admin-local manifest — copy from studio.override.yaml.example, never commit
+studio.override.yaml
