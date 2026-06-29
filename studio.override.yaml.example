@@ -1,0 +1,71 @@
+# studio.override.yaml
+# Admin-authored. Never overwritten by platform upgrades.
+#
+# Route entries here override studio.platform.yaml entries with the same path.
+# Nav groups with the same id as a platform group have their items merged in.
+# New group ids create independent sections.
+
+routes:
+  # --- Route replacement ---
+  # Uncomment to replace the platform's Dashboard with a custom version:
+  # - path: /dashboard
+  #   component: plugins/CustomDashboard/index.tsx
+
+  # --- Route removal ---
+  # disabled: true removes the route entirely (404) and drops its nav item.
+  # NOTE: this is not access control — use auth gates for that.
+  # - path: /evaluations
+  #   disabled: true
+
+  - path: /experiments
+    component: plugins/experiments/index.tsx
+
+  - path: /reports
+    component: plugins/reports/index.tsx
+
+  - path: /data-explorer
+    component: plugins/data-explorer/index.tsx
+
+nav:
+  groups:
+    # New group — independent section, appears after platform groups
+    - id: research
+      title: Research
+      order: 20
+      items:
+        - path: /experiments
+          title: Experiments
+          icon: FlaskConical
+          order: 10
+        - path: /reports
+          title: Reports
+          icon: BarChart2
+          order: 20
+
+    # --- Group injection example ---
+    # Same id as a platform group — items are merged in and sorted by order.
+    # Use this when you want to extend an existing group rather than create a new one.
+    # e.g. inject a custom trace view into NVIDIA's beta Models group at order 15:
+    # - id: models
+    #   items:
+    #     - path: /data-explorer
+    #       title: Data Explorer
+    #       icon: Table2
+    #       order: 15
+
+    # Standalone plugin as its own group
+    - id: admin-tools
+      title: Admin Tools
+      order: 30
+      items:
+        - path: /data-explorer
+          title: Data Explorer
+          icon: Table2
+          order: 10
+
+
+  # --- Nav hiding ---
+  # hide: removes paths from the sidebar only. The route still loads at its URL.
+  # Use when you want a route accessible by direct link but not surfaced in nav.
+  # hide:
+  #   - /evaluations

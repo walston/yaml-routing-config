@@ -1,0 +1,189 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f4f5f7;
+  color: #1a1a2e;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+}
+
+/* ── Layout ─────────────────────────────────────── */
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f4f5f7;
+}
+
+/* ── Side nav ────────────────────────────────────── */
+
+.sidenav {
+  width: 220px;
+  flex-shrink: 0;
+  background: #16162a;
+  color: #c8c8d8;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-header {
+  padding: 20px 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.app-name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #76b900;
+}
+
+/* scrollable region: system + user routes stack naturally, no gap */
+.sidenav-routes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* one group per config file */
+.sidenav-group {
+  padding: 6px 8px 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidenav-group + .sidenav-group {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 4px;
+  padding-top: 10px;
+}
+
+/* file path label above each group */
+.sidenav-config-file {
+  font-size: 10px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  color: rgba(255, 255, 255, 0.25);
+  padding: 0 12px 5px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* parent group label (e.g. 'Research') */
+.sidenav-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 12px 5px;
+  display: block;
+}
+
+.sidenav-bottom {
+  padding: 10px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Nav items ───────────────────────────────────── */
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  color: rgba(200, 200, 216, 0.7);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 450;
+  transition: background 0.12s, color 0.12s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0e0f0;
+}
+
+.nav-item.active {
+  background: rgba(118, 185, 0, 0.13);
+  color: #76b900;
+  font-weight: 500;
+}
+
+/* ── Pages ───────────────────────────────────────── */
+
+.page {
+  padding: 44px 48px;
+  max-width: 760px;
+}
+
+.page h1 {
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+  color: #1a1a2e;
+}
+
+.page p {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.page code {
+  background: #e8eaed;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12.5px;
+  color: #d63031;
+}
+
+/* ── Badges ──────────────────────────────────────── */
+
+.page-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+
+.page-badge.system {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.page-badge.plugin {
+  background: rgba(234, 179, 8, 0.1);
+  color: #a16207;
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}

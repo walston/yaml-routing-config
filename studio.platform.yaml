@@ -1,0 +1,62 @@
+# studio.platform.yaml
+# NVIDIA-authored. Updated with each platform release.
+# Do not edit directly — use studio.override.yaml to extend or override.
+
+# Declared path variables — used by dev-mode warnings to catch undefined or
+# shadowed params across routes. Descriptions are for documentation only.
+path_variables:
+  modelId: Unique model identifier
+  workspace: Workspace slug
+
+routes:
+  - path: /dashboard
+    component: routes/Dashboard/index.tsx
+
+  - path: /models
+    component: routes/Models/index.tsx
+
+  # Child route — inferred as nested under /models via path prefix.
+  # No nav entry; reached by navigating within /models.
+  - path: /models/:modelId
+    component: routes/ModelDetail/index.tsx
+    gate: BASE_MODELS_ENABLED
+
+  # Dev-mode shadowing demo — uncomment to see the warning fire:
+  # /models/:modelName shadows :modelId at the same URL position.
+  # - path: /models/:modelName/prompts
+  #   component: routes/ModelDetail/index.tsx
+
+  - path: /evaluations
+    component: routes/Evaluations/index.tsx
+
+  - path: /settings
+    component: routes/Settings/index.tsx
+
+nav:
+  # Ungrouped items rendered above all groups.
+  # order: 50 leaves room for admin items before (< 50) or after (> 50).
+  top:
+    - path: /dashboard
+      title: Dashboard
+      icon: LayoutDashboard
+      order: 50
+
+  groups:
+    - id: models
+      title: Models
+      order: 10
+      items:
+        - path: /models
+          title: Models
+          icon: Cpu
+          order: 10
+        - path: /evaluations
+          title: Evaluations
+          icon: FlaskConical
+          order: 20
+
+  bottom:
+    - path: /settings
+      title: Settings
+      icon: Settings
+      order: 50
